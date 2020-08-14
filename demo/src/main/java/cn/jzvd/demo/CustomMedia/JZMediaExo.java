@@ -209,7 +209,12 @@ public class JZMediaExo extends JZMediaInterface implements Player.EventListener
 
     @Override
     public void setSpeed(float speed) {
-        PlaybackParameters playbackParameters = new PlaybackParameters(speed, 1.0F);
+        PlaybackParameters playbackParameters = new PlaybackParameters(speed);
+        simpleExoPlayer.setPlaybackParameters(playbackParameters);
+    }
+    @Override
+    public void setPitch(float pitch) {
+        PlaybackParameters playbackParameters = new PlaybackParameters(pitch);
         simpleExoPlayer.setPlaybackParameters(playbackParameters);
     }
 

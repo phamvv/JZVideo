@@ -563,6 +563,8 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
             mediaInterface.start();//这里原来是非县城
             preloading = false;
         }
+
+        Log.i(TAG, "onPrepared " + " [" + jzDataSource.getCurrentUrl().toString() + "] ");//hiện thị các url đã load
         if (jzDataSource.getCurrentUrl().toString().toLowerCase().contains("mp3") ||
                 jzDataSource.getCurrentUrl().toString().toLowerCase().contains("wma") ||
                 jzDataSource.getCurrentUrl().toString().toLowerCase().contains("aac") ||
@@ -578,7 +580,7 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
     }
 
     /**
-     * 如果STATE_PREPARED就播放，如果没准备完成就走正常的播放函数startVideo();
+     * Nếu STATE_PREPARED được phát, nếu nó chưa hoàn tất, chuyển đến chức năng phát lại bình thường startVideo ();
      */
     public void startVideoAfterPreloading() {
         if (state == STATE_PREPARED) {
@@ -591,7 +593,7 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
 
     public void onStatePlaying() {
         Log.i(TAG, "onStatePlaying " + " [" + this.hashCode() + "] ");
-        if (state == STATE_PREPARED) {//如果是准备完成视频后第一次播放，先判断是否需要跳转进度。
+        if (state == STATE_PREPARED) {//Nếu là lần đầu tiên phát video sau khi khởi tạo hoàn thành, trước tiên hãy đánh giá xem video đó có cần tăng tiến độ hay không.
             if (seekToInAdvance != 0) {
                 mediaInterface.seekTo(seekToInAdvance);
                 seekToInAdvance = 0;

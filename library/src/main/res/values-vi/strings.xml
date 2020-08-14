@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tips_not_wifi">Bạn đang sử dụng mạng di động, việc tiếp tục chơi sẽ tốn dữ liệu</string>
+    <string name="tips_not_wifi_confirm">Tiếp tục chạy</string>
+    <string name="tips_not_wifi_cancel">Dừng chạy</string>
+    <string name="no_url">Địa chỉ Play không hợp lệ</string>
+    <string name="replay">phát lại</string>
+    <string name="click_to_restart">Bấm thử lại</string>
+    <string name="video_loading_failed">tải videos thất bại</string>
+</resources>

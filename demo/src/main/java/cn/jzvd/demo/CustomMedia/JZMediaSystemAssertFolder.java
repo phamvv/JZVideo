@@ -138,6 +138,14 @@ public class JZMediaSystemAssertFolder extends JZMediaInterface implements Media
         mediaPlayer.setPlaybackParams(pp);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    public void setPitch(float pitch) {
+        PlaybackParams pp = mediaPlayer.getPlaybackParams();
+        pp.setPitch(pitch);
+        mediaPlayer.setPlaybackParams(pp);
+    }
+
     @Override
     public void onPrepared(MediaPlayer mediaPlayer) {
         handler.post(() -> jzvd.onPrepared());//如果是mp3音频，走这里

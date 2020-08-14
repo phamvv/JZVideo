@@ -135,6 +135,15 @@ public class JZMediaSystem extends JZMediaInterface implements MediaPlayer.OnPre
     }
 
     @Override
+    public void setPitch(float pitch) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            PlaybackParams pp = mediaPlayer.getPlaybackParams();
+            pp.setPitch(pitch);
+            mediaPlayer.setPlaybackParams(pp);
+        }
+    }
+
+    @Override
     public void onPrepared(MediaPlayer mediaPlayer) {
         handler.post(() -> jzvd.onPrepared());//如果是mp3音频，走这里
     }
