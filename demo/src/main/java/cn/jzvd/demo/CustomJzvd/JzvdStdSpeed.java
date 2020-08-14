@@ -46,7 +46,7 @@ public class JzvdStdSpeed extends JzvdStd {
             currentSpeedIndex = (int) jzDataSource.objects[0];
         }
         if (currentSpeedIndex == 2) {
-            tvSpeed.setText("倍速");
+            tvSpeed.setText("Gấp Đôi");
         } else {
             tvSpeed.setText(getSpeedFromIndex(currentSpeedIndex) + "X");
         }
