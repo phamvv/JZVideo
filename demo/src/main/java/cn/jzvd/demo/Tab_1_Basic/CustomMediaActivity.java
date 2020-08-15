@@ -36,11 +36,11 @@ public class CustomMediaActivity extends AppCompatActivity {
 
         jzvdStd = findViewById(R.id.videoplayer);
 
-        jzvdStd.setUp("http://jzvd.nathen.cn/342a5f7ef6124a4a8faf00e738b8bee4/cf6d9db0bd4d41f59d09ea0a81e918fd-5287d2089db37e62345123a1be272f8b.mp4"
-                , "饺子很保守", JzvdStd.SCREEN_NORMAL);
+        jzvdStd.setUp("http://113.161.238.41:8080/stream/140/14093.mp4"
+                , "饺子很保守", JzvdStd.SCREEN_NORMAL, JZMediaExo.class);
 
         Glide.with(this)
-                .load("http://jzvd-pic.nathen.cn/jzvd-pic/1bb2ebbe-140d-4e2e-abd2-9e7e564f71ac.png")
+                .load("http://113.161.238.41:8080/stream/thumbnail/140/14093.jpg")
                 .into(jzvdStd.posterImageView);
 
     }
@@ -49,9 +49,10 @@ public class CustomMediaActivity extends AppCompatActivity {
     public void clickChangeToIjkplayer(View view) {
         Jzvd.releaseAllVideos();
         jzvdStd.setUp("http://jzvd.nathen.cn/342a5f7ef6124a4a8faf00e738b8bee4/cf6d9db0bd4d41f59d09ea0a81e918fd-5287d2089db37e62345123a1be272f8b.mp4"
-                , "饺子变心", JzvdStd.SCREEN_NORMAL, JZMediaIjk.class);
+                , "chạy với jkPlayer", JzvdStd.SCREEN_NORMAL, JZMediaIjk.class);
         jzvdStd.startVideo();
-        Toast.makeText(this, "Change to Ijkplayer", Toast.LENGTH_SHORT).show();
+
+        Toast.makeText(this, "đổi sang Ijkplayer", Toast.LENGTH_SHORT).show();
     }
 
     public void clickChangeToSystem(View view) {

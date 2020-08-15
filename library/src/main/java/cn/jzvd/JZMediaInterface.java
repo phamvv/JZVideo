@@ -43,5 +43,9 @@ public abstract class JZMediaInterface implements TextureView.SurfaceTextureList
 
     public abstract void setSpeed(float speed);
 
+    public abstract void setPitch(float pitch);
+
+    public abstract int getTrack();
+
     public abstract void setSurface(Surface surface);
 }

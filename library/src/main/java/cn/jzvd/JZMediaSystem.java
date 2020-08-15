@@ -8,6 +8,8 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.view.Surface;
 
+import com.google.android.exoplayer2.PlaybackParameters;
+
 import java.lang.reflect.Method;
 import java.util.Map;
 
@@ -132,6 +134,16 @@ public class JZMediaSystem extends JZMediaInterface implements MediaPlayer.OnPre
             pp.setSpeed(speed);
             mediaPlayer.setPlaybackParams(pp);
         }
+    }
+
+    @Override
+    public void setPitch(float pitch) {
+
+    }
+
+    @Override
+    public int getTrack() {
+        return 0;
     }
 
     @Override

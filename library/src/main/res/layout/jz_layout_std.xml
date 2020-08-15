@@ -26,71 +26,146 @@
     <LinearLayout
         android:id="@+id/layout_bottom"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="100dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/jz_bottom_bg"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:visibility="invisible">
+        <LinearLayout
+            android:layout_alignParentTop="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+            <TextView
+                android:id="@+id/current"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:text="00:00"
+                android:textColor="#ffffff" />
+            <SeekBar
+                android:id="@+id/bottom_seek_progress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1.0"
+                android:background="@null"
+                android:max="100"
+                android:maxHeight="1dp"
+                android:minHeight="1dp"
+                android:paddingLeft="12dp"
+                android:paddingTop="8dp"
+                android:paddingRight="12dp"
+                android:paddingBottom="8dp"
+                android:progressDrawable="@drawable/jz_bottom_seek_progress"
+                android:thumb="@drawable/jz_bottom_seek_poster" />
+            <TextView
+                android:id="@+id/total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:00"
+                android:textColor="#ffffff" />
+            <TextView
+                android:id="@+id/clarity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:paddingLeft="20dp"
+                android:text="clarity"
+                android:textAlignment="center"
+                android:textColor="#ffffff"
+                android:gravity="center_horizontal" />
+            <ImageView
+                android:id="@+id/fullscreen"
+                android:layout_width="52.5dp"
+                android:layout_height="fill_parent"
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/jz_enlarge" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/current"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="14dp"
-            android:text="00:00"
-            android:textColor="#ffffff" />
+        <LinearLayout
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="62dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                >
+                <ImageButton
+                    android:id="@+id/bt_Mute"
+                    style="@style/ActionButton"
+                    android:layout_width="@dimen/fullscreen_button_w"
+                    android:layout_height="@dimen/fullscreen_button_h"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/jz_mute"/>
 
-        <SeekBar
-            android:id="@+id/bottom_seek_progress"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1.0"
-            android:background="@null"
-            android:max="100"
-            android:maxHeight="1dp"
-            android:minHeight="1dp"
-            android:paddingLeft="12dp"
-            android:paddingTop="8dp"
-            android:paddingRight="12dp"
-            android:paddingBottom="8dp"
-            android:progressDrawable="@drawable/jz_bottom_seek_progress"
-            android:thumb="@drawable/jz_bottom_seek_poster" />
+                <ImageButton android:id="@+id/bt_Karaoke"
+                    style="@style/ActionButton"
+                    android:layout_width="@dimen/fullscreen_button_w"
+                    android:layout_height="@dimen/fullscreen_button_h"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/jz_karaoke"/>
 
-        <TextView
-            android:id="@+id/total"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="00:00"
-            android:textColor="#ffffff" />
+                <ImageButton
+                    android:id="@+id/bt_SpeedDown"
+                    style="@style/ActionButton"
+                    android:layout_width="@dimen/fullscreen_button_w"
+                    android:layout_height="@dimen/fullscreen_button_h"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/jz_speed_down"/>
 
-        <TextView
-            android:id="@+id/clarity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:paddingLeft="20dp"
-            android:text="clarity"
+                <ImageButton
+                    android:id="@+id/bt_SpeedNormal"
+                    style="@style/ActionButton"
+                    android:layout_width="@dimen/fullscreen_button_w"
+                    android:layout_height="@dimen/fullscreen_button_h"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/jz_normal_button"/>
 
-            android:textAlignment="center"
-            android:textColor="#ffffff" />
+                <ImageButton android:id="@+id/bt_SpeedUp"
+                    style="@style/ActionButton"
+                    android:layout_width="@dimen/fullscreen_button_w"
+                    android:layout_height="@dimen/fullscreen_button_h"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/jz_speed_up"/>
 
-        <ImageView
-            android:id="@+id/fullscreen"
-            android:layout_width="52.5dp"
-            android:layout_height="fill_parent"
-            android:paddingLeft="14dp"
-            android:paddingRight="14dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/jz_enlarge" />
+                <ImageButton android:id="@+id/bt_toneDown"
+                    style="@style/ActionButton"
+                    android:layout_width="@dimen/fullscreen_button_w"
+                    android:layout_height="@dimen/fullscreen_button_h"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/jz_tone_down"/>
+
+                <ImageButton android:id="@+id/bt_toneNormal"
+                    style="@style/ActionButton"
+                    android:layout_width="@dimen/fullscreen_button_w"
+                    android:layout_height="@dimen/fullscreen_button_h"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/jz_normal_button"/>
+
+                <ImageButton android:id="@+id/bt_toneUp"
+                    style="@style/ActionButton"
+                    android:layout_width="@dimen/fullscreen_button_w"
+                    android:layout_height="@dimen/fullscreen_button_h"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/jz_tone_up"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
 
     <ProgressBar
         android:id="@+id/bottom_progress"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="1.5dp"
+        android:layout_height="1dp"
         android:layout_alignParentBottom="true"
         android:max="100"
         android:progressDrawable="@drawable/jz_bottom_progress" />
@@ -199,7 +274,6 @@
             android:src="@drawable/jz_click_play_selector" />
     </LinearLayout>
 
-
     <TextView
         android:id="@+id/replay_text"
         android:layout_width="wrap_content"
@@ -243,4 +317,5 @@
             android:textColor="@android:color/white"
             android:textSize="14sp" />
     </LinearLayout>
+
 </RelativeLayout>

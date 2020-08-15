@@ -178,7 +178,7 @@
             android:layout_toStartOf="@+id/battery_time_layout"
             android:layout_toLeftOf="@+id/battery_time_layout"
             android:gravity="center"
-            android:text="倍速"
+            android:text="@string/play_speed"
             android:textColor="#ffffffff" />
     </RelativeLayout>
 

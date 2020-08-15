@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -170,6 +171,7 @@ public class JzvdStd extends Jzvd {
             mRetryLayout = new LinearLayout(context);
         }
 
+
         posterImageView.setOnClickListener(this);
         backButton.setOnClickListener(this);
         tinyBackImageView.setOnClickListener(this);
@@ -185,8 +187,6 @@ public class JzvdStd extends Jzvd {
         if ((System.currentTimeMillis() - gotoFullscreenTime) < 200) {
             return;
         }
-
-
         super.setUp(jzDataSource, screen, mediaInterfaceClass);
         titleTextView.setText(jzDataSource.title);
         setScreen(screen);

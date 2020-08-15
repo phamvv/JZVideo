@@ -139,6 +139,16 @@ public class JZMediaSystemAssertFolder extends JZMediaInterface implements Media
     }
 
     @Override
+    public void setPitch(float pitch) {
+
+    }
+
+    @Override
+    public int getTrack() {
+        return 0;
+    }
+
+    @Override
     public void onPrepared(MediaPlayer mediaPlayer) {
         handler.post(() -> jzvd.onPrepared());//如果是mp3音频，走这里
     }

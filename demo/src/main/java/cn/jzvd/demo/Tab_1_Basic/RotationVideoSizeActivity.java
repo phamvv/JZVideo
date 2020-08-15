@@ -33,10 +33,10 @@ public class RotationVideoSizeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_api_rotation_videosize);
 
         myJzvdStd = findViewById(R.id.jz_video);
-        myJzvdStd.setUp(Urls.videoUrls[0][7], Urls.videoTitles[0][7]
+        myJzvdStd.setUp(Urls.videoUrls[0][3], Urls.videoTitles[0][3]
                 , JzvdStd.SCREEN_NORMAL);
         Glide.with(this)
-                .load(Urls.videoPosters[0][7])
+                .load(Urls.videoPosters[0][3])
                 .into(myJzvdStd.posterImageView);
         // The Point IS 或者这样写也可以
 //        myJzvdStd.videoRotation = 180;

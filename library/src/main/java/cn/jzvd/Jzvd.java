@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -98,11 +99,13 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
     public int widthRatio = 0;
     public int heightRatio = 0;
     public Class mediaInterfaceClass;
-    public JZMediaInterface mediaInterface;
+    public JZMediaExo mediaInterface;
     public int positionInList = -1;//很想干掉它
     public int videoRotation = 0;
     public int seekToManulPosition = -1;
     public long seekToInAdvance = 0;
+    public float curentSpeed =1;
+    public float curentTone = 1;
 
     public ImageView startButton;
     public SeekBar progressBar;
@@ -131,6 +134,9 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
     protected long mSeekTimePosition;
     protected Context jzvdContext;
     protected long mCurrentPosition;
+    protected static int currentvolume;
+    protected ImageButton muteButton, karaokeButton,speedUpButton,speedDownButton,speedNormalButton,toneUpButton,toneDownButton, toneNornalButton;
+
     /**
      * 如果不在列表中可以不加block
      */
@@ -192,6 +198,20 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
                 CURRENT_JZVD.onStatePause();
                 CURRENT_JZVD.mediaInterface.pause();
             }
+        }
+    }
+
+    public static void Mute() {
+        if (CURRENT_JZVD != null) {
+            currentvolume = 0;
+            CURRENT_JZVD.mediaInterface.setVolume(currentvolume,currentvolume);
+        }
+    }
+
+    public static void UnMute()  {
+        if (CURRENT_JZVD != null) {
+            currentvolume = 1;
+            CURRENT_JZVD.mediaInterface.setVolume(currentvolume,currentvolume);
         }
     }
 
@@ -271,6 +291,14 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
         bottomContainer = findViewById(R.id.layout_bottom);
         textureViewContainer = findViewById(R.id.surface_container);
         topContainer = findViewById(R.id.layout_top);
+        muteButton = findViewById(R.id.bt_Mute);
+        karaokeButton = findViewById(R.id.bt_Karaoke);
+        speedDownButton = findViewById(R.id.bt_SpeedDown);
+        speedUpButton = findViewById(R.id.bt_SpeedUp);
+        speedNormalButton = findViewById(R.id.bt_SpeedNormal);
+        toneDownButton = findViewById(R.id.bt_toneDown);
+        toneUpButton = findViewById(R.id.bt_toneUp);
+        toneNornalButton = findViewById(R.id.bt_toneNormal);
 
         if (startButton == null) {
             startButton = new ImageView(context);
@@ -296,6 +324,30 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
         if (topContainer == null) {
             topContainer = new RelativeLayout(context);
         }
+        if(muteButton == null){
+            muteButton = new ImageButton(context);
+        }
+        if(karaokeButton == null){
+            karaokeButton = new ImageButton(context);
+        }
+        if(speedDownButton == null){
+            speedDownButton = new ImageButton(context);
+        }
+        if(speedUpButton == null){
+            speedUpButton = new ImageButton(context);
+        }
+        if(speedNormalButton == null){
+            speedNormalButton= new ImageButton(context);
+        }
+        if(toneDownButton == null){
+            toneDownButton = new ImageButton(context);
+        }
+        if(toneUpButton == null){
+            toneUpButton = new ImageButton(context);
+        }
+        if(toneNornalButton == null){
+            toneNornalButton = new ImageButton(context);
+        }
 
         startButton.setOnClickListener(this);
         fullscreenButton.setOnClickListener(this);
@@ -303,10 +355,17 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
         bottomContainer.setOnClickListener(this);
         textureViewContainer.setOnClickListener(this);
         textureViewContainer.setOnTouchListener(this);
+        muteButton.setOnClickListener(this);
+        karaokeButton.setOnClickListener(this);
+        speedDownButton.setOnClickListener(this);
+        speedUpButton.setOnClickListener(this);
+        speedNormalButton.setOnClickListener(this);
+        toneNornalButton.setOnClickListener(this);
+        toneDownButton.setOnClickListener(this);
+        toneUpButton.setOnClickListener(this);
 
         mScreenWidth = getContext().getResources().getDisplayMetrics().widthPixels;
         mScreenHeight = getContext().getResources().getDisplayMetrics().heightPixels;
-
         state = STATE_IDLE;
     }
 
@@ -319,7 +378,7 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
     }
 
     public void setUp(JZDataSource jzDataSource, int screen) {
-        setUp(jzDataSource, screen, JZMediaSystem.class);
+        setUp(jzDataSource, screen, JZMediaExo.class);
     }
 
     public void setUp(String url, String title, int screen, Class mediaInterfaceClass) {
@@ -327,12 +386,10 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
     }
 
     public void setUp(JZDataSource jzDataSource, int screen, Class mediaInterfaceClass) {
-
-
         this.jzDataSource = jzDataSource;
         this.screen = screen;
         onStateNormal();
-        this.mediaInterfaceClass = mediaInterfaceClass;
+        this.mediaInterfaceClass = JZMediaExo.class; //mediaInterfaceClass;
     }
 
     public void setMediaInterface(Class mediaInterfaceClass) {
@@ -347,6 +404,45 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
             clickStart();
         } else if (i == R.id.fullscreen) {
             clickFullscreen();
+        }
+        else if(i == R.id.bt_Mute)
+        {
+            if(currentvolume != 0) Mute();
+            else UnMute();
+        }
+        else if(i == R.id.bt_Karaoke)
+        {
+
+        }
+        else if(i==R.id.bt_SpeedDown)
+        {
+            curentSpeed -= 0.05;
+            CURRENT_JZVD.mediaInterface.setSpeed(curentSpeed);
+        }
+        else if(i==R.id.bt_SpeedNormal)
+        {
+            curentSpeed = 1;
+            CURRENT_JZVD.mediaInterface.setSpeed(curentSpeed);
+        }
+        else if(i==R.id.bt_SpeedUp)
+        {
+            curentSpeed += 0.05;
+            CURRENT_JZVD.mediaInterface.setSpeed(curentSpeed);
+        }
+        else if(i==R.id.bt_toneDown)
+        {
+            curentTone -= 0.05;
+            CURRENT_JZVD.mediaInterface.setPitch(curentTone);
+        }
+        else if(i==R.id.bt_toneNormal)
+        {
+            curentTone = 1;
+            CURRENT_JZVD.mediaInterface.setPitch(curentTone);
+        }
+        else if(i==R.id.bt_toneUp)
+        {
+            curentTone += 0.05;
+            CURRENT_JZVD.mediaInterface.setPitch(curentTone);
         }
     }
 
@@ -765,7 +861,7 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
         Log.d(TAG, "startVideo [" + this.hashCode() + "] ");
         setCurrentJzvd(this);
         try {
-            Constructor<JZMediaInterface> constructor = mediaInterfaceClass.getConstructor(Jzvd.class);
+            Constructor<JZMediaExo> constructor = mediaInterfaceClass.getConstructor(Jzvd.class);
             this.mediaInterface = constructor.newInstance(this);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();

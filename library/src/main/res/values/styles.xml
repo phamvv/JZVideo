@@ -17,5 +17,14 @@
         <item name="android:windowEnterAnimation">@anim/pop_from_bottom_anim_in</item>
         <item name="android:windowExitAnimation">@anim/pop_from_bottom_anim_out</item>
     </style>
-
+    <style name="ActionButton">
+        <item name="android:background">?android:attr/actionBarItemBackground</item>
+        <item name="android:paddingStart">4dp</item>
+        <item name="android:paddingEnd">4dp</item>
+        <item name="android:minWidth">@dimen/fullscreen_button_w</item>
+        <item name ="android:minHeight">@dimen/fullscreen_button_h</item>
+        <item name="android:gravity">center</item>
+        <item name="android:scaleType">center</item>
+        <item name="android:maxLines">2</item>
+    </style>
 </resources>

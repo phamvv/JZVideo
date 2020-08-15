@@ -1,4 +1,4 @@
-package cn.jzvd.demo.CustomMedia;
+package cn.jzvd;
 
 import android.content.Context;
 import android.graphics.SurfaceTexture;
@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Log;
 import android.view.Surface;
+import android.widget.ImageButton;
+
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
@@ -35,11 +37,6 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.google.android.exoplayer2.video.VideoListener;
 
-import cn.jzvd.JZMediaInterface;
-import cn.jzvd.Jzvd;
-//import cn.jzvd.demo.Tab_2_Custom.AGVideo.AGVideo;
-//import cn.jzvd.demo.R;
-
 /**
  * Created by MinhDV on 5/3/18.
  */
@@ -55,6 +52,7 @@ public class JZMediaExo extends JZMediaInterface implements Player.EventListener
 
     @Override
     public void start() {
+
         simpleExoPlayer.setPlayWhenReady(true);
     }
 
@@ -120,6 +118,7 @@ public class JZMediaExo extends JZMediaInterface implements Player.EventListener
             }
         });
 
+
     }
 
     @Override
@@ -148,15 +147,9 @@ public class JZMediaExo extends JZMediaInterface implements Player.EventListener
             return;
         }
         if (time != previousSeek) {
-            if (time >= simpleExoPlayer.getBufferedPosition()) {
-               // if (jzvd instanceof AGVideo) {
-               //     ((AGVideo) jzvd).showProgress();
-               // }
-            }
             simpleExoPlayer.seekTo(time);
             previousSeek = time;
             jzvd.seekToInAdvance = time;
-
         }
     }
 
@@ -200,16 +193,11 @@ public class JZMediaExo extends JZMediaInterface implements Player.EventListener
         PlaybackParameters playbackParameters = new PlaybackParameters(speed, simpleExoPlayer.getPlaybackParameters().pitch);
         simpleExoPlayer.setPlaybackParameters(playbackParameters);
     }
-
-    public  void  setPitch(float pitch)
+    @Override
+    public void setPitch(float pitch)
     {
         PlaybackParameters playbackParameters = new PlaybackParameters(simpleExoPlayer.getPlaybackParameters().speed, pitch);
         simpleExoPlayer.setPlaybackParameters(playbackParameters);
-    }
-
-    @Override
-    public int getTrack() {
-        return 0;
     }
 
     @Override
@@ -226,6 +214,12 @@ public class JZMediaExo extends JZMediaInterface implements Player.EventListener
     @Override
     public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
 
+    }
+
+    @Override
+    public int getTrack()
+    {
+        return  2;
     }
 
     @Override

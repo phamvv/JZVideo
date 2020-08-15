@@ -21,7 +21,7 @@
     <string name="play_with_1_1">Standard ui 1:1</string>
     <string name="play_with_16_9">Standard ui 16:9</string>
     <string name="volume_after_fullscreen">Volume after fullscreen</string>
-    <string name="add_volume_btn">Volume after fullscreen</string>
+    <string name="add_volume_btn">Add Volume button after fullscreen</string>
     <string name="play_mp3">Play Mp3</string>
     <string name="play_speed">Play Speed</string>
     <string name="agplayer">UI Big Change AG</string>

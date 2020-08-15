@@ -153,6 +153,16 @@ public class JZMediaIjk extends JZMediaInterface implements IMediaPlayer.OnPrepa
     }
 
     @Override
+    public void setPitch(float pitch) {
+
+    }
+
+    @Override
+    public int getTrack() {
+        return 0;
+    }
+
+    @Override
     public void onPrepared(IMediaPlayer iMediaPlayer) {
         handler.post(() -> jzvd.onPrepared());
     }

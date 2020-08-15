@@ -1,4 +1,8 @@
 <resources>
     <dimen name="jz_start_button_w_h_normal">45dp</dimen>
     <dimen name="jz_start_button_w_h_fullscreen">62dp</dimen>
+    <dimen name="normal_button_w">40dp</dimen>
+    <dimen name="normal_button_h">40dp</dimen>
+    <dimen name="fullscreen_button_w">60dp</dimen>
+    <dimen name="fullscreen_button_h">60dp</dimen>
 </resources>
