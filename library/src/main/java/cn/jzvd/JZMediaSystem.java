@@ -142,7 +142,12 @@ public class JZMediaSystem extends JZMediaInterface implements MediaPlayer.OnPre
     }
 
     @Override
-    public int getTrack() {
+    public int getAudioTrackCount() {
+        return 0;
+    }
+
+    @Override
+    public int getCurentAudioTrack() {
         return 0;
     }
 
@@ -186,6 +191,11 @@ public class JZMediaSystem extends JZMediaInterface implements MediaPlayer.OnPre
     @Override
     public void setSurface(Surface surface) {
         mediaPlayer.setSurface(surface);
+    }
+
+    @Override
+    public void setAudioTrack(int track) {
+
     }
 
     @Override

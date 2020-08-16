@@ -6,8 +6,8 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.Surface;
-import android.widget.ImageButton;
 
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -26,16 +26,20 @@ import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.source.hls.HlsMediaSource;
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.trackselection.MappingTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
-import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultAllocator;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.Util;
 import com.google.android.exoplayer2.video.VideoListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by MinhDV on 5/3/18.
@@ -45,10 +49,17 @@ public class JZMediaExo extends JZMediaInterface implements Player.EventListener
     private Runnable callback;
     private String TAG = "JZMediaExo";
     private long previousSeek = 0;
+    private  int curentAudioTrack = 1;
+    private int audioTrackCount = 0;
+    private  Context context;
+    private DefaultTrackSelector trackSelector;
+    private DefaultTrackSelector.Parameters trackSelectorParameters;
+    private SparseArray<DefaultTrackSelector.SelectionOverride> overrides;
 
     public JZMediaExo(Jzvd jzvd) {
         super(jzvd);
     }
+
 
     @Override
     public void start() {
@@ -59,8 +70,8 @@ public class JZMediaExo extends JZMediaInterface implements Player.EventListener
     @Override
     public void prepare() {
         Log.e(TAG, "prepare");
-        Context context = jzvd.getContext();
-
+        context = jzvd.getContext();
+        overrides = new SparseArray<>();
         release();
         mMediaHandlerThread = new HandlerThread("AVPlayer");
         mMediaHandlerThread.start();
@@ -68,18 +79,21 @@ public class JZMediaExo extends JZMediaInterface implements Player.EventListener
         handler = new Handler();
         mMediaHandler.post(() -> {
             BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
-            TrackSelection.Factory videoTrackSelectionFactory =
+            TrackSelection.Factory trackSelectionFactory =
                     new AdaptiveTrackSelection.Factory(bandwidthMeter);
-            TrackSelector trackSelector =
-                    new DefaultTrackSelector(videoTrackSelectionFactory);
+            trackSelector = new DefaultTrackSelector(context,trackSelectionFactory);
 
             LoadControl loadControl = new DefaultLoadControl(new DefaultAllocator(true, C.DEFAULT_BUFFER_SEGMENT_SIZE),
                     360000, 600000, 1000, 5000,
                     C.LENGTH_UNSET,
                     false);
 
+            //create builder
+            DefaultTrackSelector.ParametersBuilder builder =
+                    new DefaultTrackSelector.ParametersBuilder(context);
+            trackSelectorParameters = builder.build();
+            trackSelector.setParameters(trackSelectorParameters);
             // 2. Create the player
-
             RenderersFactory renderersFactory = new DefaultRenderersFactory(context);
             simpleExoPlayer = ExoPlayerFactory.newSimpleInstance(context, renderersFactory, trackSelector, loadControl);
             // Produces DataSource instances through which media data is loaded.
@@ -97,7 +111,7 @@ public class JZMediaExo extends JZMediaInterface implements Player.EventListener
             }
             simpleExoPlayer.addVideoListener(this);
 
-            Log.e(TAG, "URL Link = " + currUrl);
+           // Log.e(TAG, "URL Link = " + currUrl);
 
             simpleExoPlayer.addListener(this);
             Boolean isLoop = jzvd.jzDataSource.looping;
@@ -117,8 +131,6 @@ public class JZMediaExo extends JZMediaInterface implements Player.EventListener
                 }
             }
         });
-
-
     }
 
     @Override
@@ -192,12 +204,32 @@ public class JZMediaExo extends JZMediaInterface implements Player.EventListener
     public void setSpeed(float speed) {
         PlaybackParameters playbackParameters = new PlaybackParameters(speed, simpleExoPlayer.getPlaybackParameters().pitch);
         simpleExoPlayer.setPlaybackParameters(playbackParameters);
+        jzvd.curentSpeed = speed;
     }
     @Override
     public void setPitch(float pitch)
     {
         PlaybackParameters playbackParameters = new PlaybackParameters(simpleExoPlayer.getPlaybackParameters().speed, pitch);
         simpleExoPlayer.setPlaybackParameters(playbackParameters);
+        jzvd.curentTone = pitch;
+    }
+
+    @Override
+    public int getAudioTrackCount() {
+        if(simpleExoPlayer != null)
+        {
+          return  audioTrackCount;
+        }
+        else return 0;
+    }
+
+    @Override
+    public int getCurentAudioTrack() {
+        if(simpleExoPlayer != null)
+        {
+            return  curentAudioTrack;
+        }
+        else return 0;
     }
 
     @Override
@@ -213,18 +245,21 @@ public class JZMediaExo extends JZMediaInterface implements Player.EventListener
 
     @Override
     public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
+        //get all track information
+        for(int i = 0; i < trackGroups.length; i++){
+            String format = trackGroups.get(i).getFormat(0).sampleMimeType;
+            String lang = trackGroups.get(i).getFormat(0).language;
+            String id = trackGroups.get(i).getFormat(0).id;
+            if(format.contains("audio") && id != null && lang != null){
+               audioTrackCount += 1;
+            }
+        }
 
-    }
-
-    @Override
-    public int getTrack()
-    {
-        return  2;
     }
 
     @Override
     public void onLoadingChanged(boolean isLoading) {
-        Log.e(TAG, "onLoadingChanged");
+       // Log.e(TAG, "onLoadingChanged");
     }
 
     @Override
@@ -236,9 +271,6 @@ public class JZMediaExo extends JZMediaInterface implements Player.EventListener
                 }
                 break;
                 case Player.STATE_BUFFERING: {
-                    //if (jzvd instanceof AGVideo) {
-                    //    ((AGVideo) jzvd).showProgress();
-                    //}
                     handler.post(callback);
                 }
                 break;
@@ -293,8 +325,27 @@ public class JZMediaExo extends JZMediaInterface implements Player.EventListener
         if (simpleExoPlayer != null) {
             simpleExoPlayer.setVideoSurface(surface);
         } else {
-            Log.e("AGVideo", "simpleExoPlayer为空");
+            Log.e("player", "setSurface");
         }
+    }
+
+    @Override
+    public void setAudioTrack(int track) {
+        System.out.println("setAudioTrack: "  + track);
+        MappingTrackSelector.MappedTrackInfo mappedTrackInfo = Assertions.checkNotNull(trackSelector.getCurrentMappedTrackInfo());
+        DefaultTrackSelector.Parameters parameters = trackSelector.getParameters();
+        DefaultTrackSelector.ParametersBuilder builder = parameters.buildUpon();
+        for (int rendererIndex = 0; rendererIndex < mappedTrackInfo.getRendererCount(); rendererIndex++) {
+            if (mappedTrackInfo.getRendererType(rendererIndex) == C.TRACK_TYPE_AUDIO) {
+                builder.clearSelectionOverrides(rendererIndex).setRendererDisabled(rendererIndex, false);
+                int groupIndex = track -1;
+                int [] tracks = {0};
+                DefaultTrackSelector.SelectionOverride override = new DefaultTrackSelector.SelectionOverride(groupIndex,tracks);
+                builder.setSelectionOverride(rendererIndex, mappedTrackInfo.getTrackGroups(rendererIndex), override);
+            }
+        }
+        trackSelector.setParameters(builder);
+        curentAudioTrack = track;
     }
 
     @Override

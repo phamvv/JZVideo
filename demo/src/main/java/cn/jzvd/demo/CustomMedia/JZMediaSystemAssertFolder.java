@@ -144,7 +144,12 @@ public class JZMediaSystemAssertFolder extends JZMediaInterface implements Media
     }
 
     @Override
-    public int getTrack() {
+    public int getAudioTrackCount() {
+        return 0;
+    }
+
+    @Override
+    public int getCurentAudioTrack() {
         return 0;
     }
 
@@ -197,6 +202,11 @@ public class JZMediaSystemAssertFolder extends JZMediaInterface implements Media
     @Override
     public void setSurface(Surface surface) {
         mediaPlayer.setSurface(surface);
+    }
+
+    @Override
+    public void setAudioTrack(int track) {
+
     }
 
     @Override

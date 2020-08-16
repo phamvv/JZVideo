@@ -9,7 +9,6 @@
         android:id="@+id/surface_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
     </FrameLayout>
 
     <ImageView
@@ -26,7 +25,7 @@
     <LinearLayout
         android:id="@+id/layout_bottom"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="70dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/jz_bottom_bg"
         android:gravity="center_vertical"
@@ -37,7 +36,7 @@
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="30dp">
             <TextView
                 android:id="@+id/current"
                 android:layout_width="wrap_content"
@@ -90,7 +89,7 @@
         <LinearLayout
             android:gravity="center_horizontal"
             android:layout_width="match_parent"
-            android:layout_height="62dp">
+            android:layout_height="40dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -98,63 +97,86 @@
                 android:orientation="horizontal"
                 >
                 <ImageButton
+                    android:id="@+id/bt_Search"
+                    style="@style/ActionButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter" />
+                <ImageButton
                     android:id="@+id/bt_Mute"
                     style="@style/ActionButton"
-                    android:layout_width="@dimen/fullscreen_button_w"
-                    android:layout_height="@dimen/fullscreen_button_h"
-                    android:scaleType="centerInside"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/jz_mute"/>
 
                 <ImageButton android:id="@+id/bt_Karaoke"
                     style="@style/ActionButton"
-                    android:layout_width="@dimen/fullscreen_button_w"
-                    android:layout_height="@dimen/fullscreen_button_h"
-                    android:scaleType="centerInside"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/jz_karaoke"/>
 
                 <ImageButton
                     android:id="@+id/bt_SpeedDown"
                     style="@style/ActionButton"
-                    android:layout_width="@dimen/fullscreen_button_w"
-                    android:layout_height="@dimen/fullscreen_button_h"
-                    android:scaleType="centerInside"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/jz_speed_down"/>
 
                 <ImageButton
                     android:id="@+id/bt_SpeedNormal"
                     style="@style/ActionButton"
-                    android:layout_width="@dimen/fullscreen_button_w"
-                    android:layout_height="@dimen/fullscreen_button_h"
-                    android:scaleType="centerInside"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/jz_normal_button"/>
 
                 <ImageButton android:id="@+id/bt_SpeedUp"
                     style="@style/ActionButton"
-                    android:layout_width="@dimen/fullscreen_button_w"
-                    android:layout_height="@dimen/fullscreen_button_h"
-                    android:scaleType="centerInside"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/jz_speed_up"/>
 
                 <ImageButton android:id="@+id/bt_toneDown"
                     style="@style/ActionButton"
-                    android:layout_width="@dimen/fullscreen_button_w"
-                    android:layout_height="@dimen/fullscreen_button_h"
-                    android:scaleType="centerInside"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/jz_tone_down"/>
 
                 <ImageButton android:id="@+id/bt_toneNormal"
                     style="@style/ActionButton"
-                    android:layout_width="@dimen/fullscreen_button_w"
-                    android:layout_height="@dimen/fullscreen_button_h"
-                    android:scaleType="centerInside"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/jz_normal_button"/>
 
                 <ImageButton android:id="@+id/bt_toneUp"
                     style="@style/ActionButton"
-                    android:layout_width="@dimen/fullscreen_button_w"
-                    android:layout_height="@dimen/fullscreen_button_h"
-                    android:scaleType="centerInside"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/jz_tone_up"/>
+
+                <ImageButton
+                    android:id="@+id/bt_Setup"
+                    style="@style/ActionButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter" />
 
             </LinearLayout>
         </LinearLayout>
@@ -189,7 +211,7 @@
         android:background="@drawable/jz_title_bg"
         android:paddingStart="10dp"
         android:paddingLeft="10dp"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <ImageView
             android:id="@+id/back"

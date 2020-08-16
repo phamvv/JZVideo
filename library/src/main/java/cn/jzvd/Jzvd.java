@@ -106,6 +106,7 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
     public long seekToInAdvance = 0;
     public float curentSpeed =1;
     public float curentTone = 1;
+    public int curentAudioTrack =1;
 
     public ImageView startButton;
     public SeekBar progressBar;
@@ -134,8 +135,8 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
     protected long mSeekTimePosition;
     protected Context jzvdContext;
     protected long mCurrentPosition;
-    protected static int currentvolume;
-    protected ImageButton muteButton, karaokeButton,speedUpButton,speedDownButton,speedNormalButton,toneUpButton,toneDownButton, toneNornalButton;
+    protected static int currentvolume = 1;
+    protected static ImageButton muteButton, karaokeButton,speedUpButton,speedDownButton,speedNormalButton,toneUpButton,toneDownButton, toneNornalButton;
 
     /**
      * 如果不在列表中可以不加block
@@ -230,6 +231,7 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
             final Jzvd jzvd = constructor.newInstance(context);
             FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+           // loadSizeButton(60);
             vp.addView(jzvd, lp);
             jzvd.setUp(jzDataSource, JzvdStd.SCREEN_FULLSCREEN);
             jzvd.startVideo();
@@ -257,6 +259,7 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
             CURRENT_JZVD.clearFloatScreen();
             return true;
         }
+      //  loadSizeButton(40);
         return false;
     }
 
@@ -412,6 +415,17 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
         }
         else if(i == R.id.bt_Karaoke)
         {
+            if(CURRENT_JZVD.mediaInterface.getAudioTrackCount() >= 2)
+            {
+                curentAudioTrack = CURRENT_JZVD.mediaInterface.getCurentAudioTrack();
+                if(curentAudioTrack == 1){
+                    CURRENT_JZVD.mediaInterface.setAudioTrack(2);
+                }
+                else {
+                    CURRENT_JZVD.mediaInterface.setAudioTrack(1);
+                }
+            }
+
 
         }
         else if(i==R.id.bt_SpeedDown)
@@ -443,6 +457,13 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
         {
             curentTone += 0.05;
             CURRENT_JZVD.mediaInterface.setPitch(curentTone);
+        }
+    }
+
+    public void changeAudioTrack(int track) {
+        if (CURRENT_JZVD != null) {
+
+            CURRENT_JZVD.mediaInterface.setAudioTrack(track);
         }
     }
 

@@ -208,9 +208,15 @@ public class JZMediaExo extends JZMediaInterface implements Player.EventListener
     }
 
     @Override
-    public int getTrack() {
+    public int getAudioTrackCount() {
         return 0;
     }
+
+    @Override
+    public int getCurentAudioTrack() {
+        return 0;
+    }
+
 
     @Override
     public void onTimelineChanged(final Timeline timeline, Object manifest, final int reason) {
@@ -301,6 +307,11 @@ public class JZMediaExo extends JZMediaInterface implements Player.EventListener
         } else {
             Log.e("AGVideo", "simpleExoPlayer为空");
         }
+    }
+
+    @Override
+    public void setAudioTrack(int track) {
+
     }
 
     @Override

@@ -158,7 +158,12 @@ public class JZMediaIjk extends JZMediaInterface implements IMediaPlayer.OnPrepa
     }
 
     @Override
-    public int getTrack() {
+    public int getAudioTrackCount() {
+        return 0;
+    }
+
+    @Override
+    public int getCurentAudioTrack() {
         return 0;
     }
 
@@ -202,6 +207,11 @@ public class JZMediaIjk extends JZMediaInterface implements IMediaPlayer.OnPrepa
     @Override
     public void setSurface(Surface surface) {
         ijkMediaPlayer.setSurface(surface);
+    }
+
+    @Override
+    public void setAudioTrack(int track) {
+
     }
 
     @Override
